@@ -1,0 +1,1157 @@
+/* ==========================================================================
+   CSS VARIABLE & RESET
+   ========================================================================== */@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Lato:wght@300;400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Lato", sans-serif;
+}
+   :root {
+    /* Color Palette - Soft Premium Romantic */
+    --color-bg-main: #fcf9f5; /* Ivory / Cream */
+    --color-bg-alt: #f3eae8; /* Very soft blush */
+    --color-text-main: #4a3b32; /* Warm dark brown */
+    --color-text-muted: #8c7b74;
+    --color-accent: #d8a7a5; /* Warm rose / muted pink */
+    --color-accent-hover: #c48e8c;
+    --color-card-bg: rgba(255, 255, 255, 0.7);
+    --color-border: rgba(216, 167, 165, 0.3);
+    
+    /* Typography */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lato', sans-serif;
+    
+    /* Spacing & Sizes */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    
+    /* Shadows */
+    --shadow-soft: 0 10px 30px rgba(74, 59, 50, 0.05);
+    --shadow-hover: 0 15px 40px rgba(74, 59, 50, 0.1);
+    
+    /* Transitions */
+    --trans-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  cursor: none; /* Hide default cursor to enable the personalized glowing dot trail */
+  font-size: 16px;
+}
+
+/* Fallback for devices without fine pointer */
+@media (pointer: coarse) {
+  html {
+    cursor: auto;
+  }
+  .custom-cursor {
+    display: none !important;
+  }
+}
+
+body {
+  background-color: #fcf9f5;
+  color: #4a3b32;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #fbf8f4;
+}
+::-webkit-scrollbar-thumb {
+  background: #e3d2cd;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d8a7a5;
+}
+
+/* Moving Mesh Warm Gradient Background */
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background: linear-gradient(135deg, #fcf9f5 0%, #f5e6e3 50%, #fbf3f0 100%);
+  background-size: 200% 200%;
+  animation: meshFlow 25s ease infinite;
+}
+
+@keyframes meshFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Beautiful custom particles/shimmer overlay */
+.shimmer-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(216, 167, 165, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(216, 167, 165, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.6) 0%, transparent 60%);
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(74, 59, 50, 0.04);
+}
+
+.glass-panel-heavy {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 12px 40px -10px rgba(74, 59, 50, 0.06);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(74, 59, 50, 0.03);
+}
+
+/* Sparkles animation for beautiful elements */
+.glowing-sparkle {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(218, 167, 165, 0.6);
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: shine var(--s, 3s) ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes shine {
+  0%, 100% {
+    transform: scale(0.5);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.9;
+  }
+}
+
+/* 3D scrapbook frame details key elements */
+.scrapbook-card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.1s ease, box-shadow 0.3s ease;
+}
+
+.scrapbook-card-inner {
+  transform: translateZ(20px);
+}
+
+/* Custom range styles for music timing bar */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #d8a7a5;
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #d8a7a5;
+  cursor: pointer;
+  border: none;
+}
+
+h1, h2, h3, h4, .greeting, .signature {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    font-family: var(--font-body);
+    cursor: pointer;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY & UTILITIES
+   ========================================================================== */
+h2 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    margin-bottom: 0.5rem;
+    color: var(--color-text-main);
+}
+
+p {
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    color: var(--color-text-muted);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.bg-alt {
+    background-color: var(--color-bg-alt);
+}
+
+.section-container {
+    padding: 6rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 600px;
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn-primary, .btn-secondary, .btn-outline {
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    transition: var(--trans-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(216, 167, 165, 0.4);
+}
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(216, 167, 165, 0.6);
+}
+
+.btn-secondary {
+    background-color: #fff;
+    color: var(--color-text-main);
+    box-shadow: var(--shadow-soft);
+}
+.btn-secondary:hover, .btn-secondary:focus {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--color-accent);
+    color: var(--color-text-main);
+}
+.btn-outline:hover, .btn-outline:focus {
+    background-color: var(--color-accent);
+    color: #fff;
+}
+
+/* Floating Actions (Audio & Back to top) */
+.floating-btn {
+    position: fixed;
+    z-index: 50;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--color-card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-main);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--trans-smooth);
+}
+.floating-btn:hover {
+    transform: scale(1.1);
+    background: #fff;
+}
+
+#audio-toggle {
+    top: 2rem;
+    right: 2rem;
+}
+#back-to-top {
+    bottom: 2rem;
+    right: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+}
+#back-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   SCROLL PROGRESS
+   ========================================================================== */
+.scroll-progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    z-index: 999;
+}
+.scroll-progress-bar {
+    height: 100%;
+    background: var(--color-accent);
+    width: 0%;
+    transition: width 0.1s ease-out;
+}
+
+/* ==========================================================================
+   1. OPENING SCREEN
+   ========================================================================== */
+.screen-full {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--color-bg-main) 0%, var(--color-bg-alt) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 1s ease-in-out, visibility 1s;
+}
+
+.opening-content {
+    text-align: center;
+    z-index: 2;
+    padding: 2rem;
+}
+
+.opening-content h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 1rem;
+    color: var(--color-text-main);
+}
+.opening-content h1 span {
+    font-style: italic;
+    color: var(--color-accent);
+}
+
+.opening-content p {
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+}
+
+/* Sparkles Base */
+.sparkles {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(216, 167, 165, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(216, 167, 165, 0.15) 0%, transparent 50%);
+    z-index: 1;
+}
+
+/* ==========================================================================
+   2. HERO SECTION
+   ========================================================================== */
+.hero-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+.hero-image-container {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 200px 200px 20px 20px; /* Aesthetic arch shape */
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+}
+
+.hero-image-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgba(255,255,255,0.6);
+    pointer-events: none;
+}
+
+.hero-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    transition: transform 3s ease-out;
+}
+.hero-img:hover {
+    transform: scale(1.05);
+}
+
+.hero-text h2 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-style: italic;
+}
+
+/* ==========================================================================
+   3. MEMORY GALLERY (POLAROID DESK)
+   ========================================================================== */
+.polaroid-desk {
+    position: relative;
+    width: 100%;
+    height: 70vh; /* Ruang meja untuk sebar foto */
+    min-height: 500px;
+    margin: 2rem 0;
+    /* overflow-x: hidden; */
+}
+
+.draggable-polaroid {
+    position: absolute;
+    width: 240px;
+    cursor: grab;
+    user-select: none;
+    touch-action: none; /* Penting untuk mobile drag */
+    z-index: 10;
+}
+
+.draggable-polaroid:active {
+    cursor: grabbing;
+}
+
+/* Memastikan gambar dalam polaroid tidak bisa di-drag native */
+.draggable-polaroid img {
+    pointer-events: none;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.scrapbook-card {
+    background: var(--color-card-bg);
+    padding: 1rem 1rem 2rem 1rem;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid #fff;
+    transition: var(--trans-smooth);
+    position: relative;
+}
+
+.scrapbook-card .img-wrapper {
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.scrapbook-card img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.scrapbook-card figcaption {
+    font-family: var(--font-heading);
+    font-style: italic;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--color-text-main);
+    opacity: 0.8;
+}
+
+/* Interaksi Desktop Hover / Tap Mobile */
+.scrapbook-card:hover {
+    transform: translateY(-10px) scale(1.02) !important;
+    box-shadow: var(--shadow-hover);
+    z-index: 2;
+}
+.scrapbook-card:hover img {
+    transform: scale(1.08); /* slight zoom in image */
+}
+.scrapbook-card:hover figcaption {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   4. LETTER SECTION
+   ========================================================================== */
+.letter-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+    width: 100%;
+}
+@media (min-width: 768px) {
+    .letter-wrapper {
+        flex-direction: row;
+        align-items: stretch;
+    }
+}
+
+.letter-photo {
+    flex: 1;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+}
+.letter-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 300px;
+}
+
+.letter-paper {
+    flex: 1.5;
+    background: var(--color-card-bg);
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid #fff;
+    position: relative;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.letter-paper p {
+    margin-bottom: 1.5rem;
+}
+.letter-paper .greeting {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--color-text-main);
+}
+.letter-paper .signature {
+    text-align: right;
+    margin-top: 3rem;
+    font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   5. WISH WALL
+   ========================================================================== */
+.wish-wall {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.wish-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    max-width: 250px;
+    border-left: 3px solid var(--color-accent);
+    transition: var(--trans-smooth);
+}
+.wish-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+}
+.wish-card p {
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   6. GIFT BOX SURPRISE
+   ========================================================================== */
+.surprise-wrapper {
+    text-align: center;
+    width: 100%;
+}
+
+.gift-container {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 4rem auto 2rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.gift-box {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background-color: var(--color-accent);
+    border-radius: 8px;
+    box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+/* Pita Vertikal Kotak */
+.gift-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 100%;
+    background-color: var(--color-bg);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+.gift-lid {
+    position: absolute;
+    bottom: 95px;
+    left: -10px;
+    width: 180px;
+    height: 35px;
+    background-color: var(--color-accent-hover);
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
+    z-index: 2;
+}
+
+/* Pita Vertikal Tutup */
+.gift-lid::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 100%;
+    background-color: var(--color-bg);
+}
+
+.gift-bow {
+    position: absolute;
+    bottom: 130px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 30px;
+    z-index: 2;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
+}
+
+.gift-bow::before, .gift-bow::after {
+    content: '';
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border: 6px solid var(--color-bg);
+    border-radius: 50% 50% 0 50%;
+}
+.gift-bow::before {
+    left: 0;
+    transform: rotate(45deg);
+}
+.gift-bow::after {
+    right: 0;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+}
+
+/* Message Card */
+.gift-message-card {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    width: 280px;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    border: 2px dashed var(--color-accent);
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Animations Shake */
+@keyframes shakeGently {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+@keyframes shakeViolently {
+    0%, 100% { transform: rotate(0) scale(1); }
+    25% { transform: rotate(-10deg) scale(1.05); }
+    75% { transform: rotate(10deg) scale(1.05); }
+}
+
+.shake-1 { animation: shakeGently 0.4s ease; }
+.shake-2 { animation: shakeViolently 0.4s ease; }
+
+/* Open State */
+.gift-container.open .gift-lid {
+    transform: translateY(-80px) rotate(-15deg);
+    opacity: 0;
+}
+.gift-container.open .gift-bow {
+    transform: translate(-50%, -80px) rotate(-15deg);
+    opacity: 0;
+}
+.gift-container.open .gift-message-card {
+    transform: translateX(-50%) translateY(-150px) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ==========================================================================
+   INTERACTIVE CAKE & FLAME
+   ========================================================================== */
+.cake-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.cake-container {
+    margin: 2rem 0 3rem 0;
+    position: relative;
+    width: 200px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.cake {
+    position: relative;
+    width: 160px;
+    height: 80px;
+}
+
+/* Base Cake */
+.cake-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background: #d8a7a5;
+    border-radius: 10px;
+    box-shadow: inset 0 -10px 0 rgba(0,0,0,0.1), inset 0 10px 0 #f3eae8;
+}
+
+.cake-top {
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    height: 30px;
+    background: #fbf3f0;
+    border-radius: 10px 10px 0 0;
+    box-shadow: inset 0 5px 0 rgba(255,255,255,0.8);
+}
+
+/* Candle */
+.candle {
+    position: absolute;
+    bottom: 78px; /* Slightly lower to sink into the cake */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 40px;
+    background: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 8px,
+        #ff94a2 8px,
+        #ff94a2 16px
+    );
+    border-radius: 4px 4px 2px 2px;
+    box-shadow: inset -2px -2px 5px rgba(0,0,0,0.1), 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+/* Sumbu Lilin */
+.candle::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 6px;
+    background: #333;
+    border-radius: 2px;
+}
+
+/* The Flame */
+.flame {
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 28px;
+    background: radial-gradient(ellipse at bottom, #fff 10%, #ffcc00 40%, #ff6600 80%, rgba(255, 102, 0, 0) 100%);
+    border-radius: 50% 50% 20% 20%;
+    box-shadow: 
+        0 0 10px rgba(255, 204, 0, 0.8),
+        0 0 20px rgba(255, 102, 0, 0.6),
+        0 0 40px rgba(255, 0, 0, 0.4);
+    animation: naturalFlicker 3s infinite ease-in-out alternate;
+    transform-origin: center bottom;
+    transition: all 0.5s ease;
+    z-index: 11;
+}
+
+.flame.extinguished {
+    animation: none;
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+}
+
+/* Flame Animation */
+@keyframes naturalFlicker {
+    0%, 100% { transform: translateX(-50%) scale(1) rotate(-1deg); opacity: 1; }
+    20% { transform: translateX(-50%) scale(1.02, 1.05) rotate(2deg); opacity: 0.95; }
+    40% { transform: translateX(-50%) scale(0.98, 0.95) rotate(-2deg); opacity: 0.9; }
+    60% { transform: translateX(-50%) scale(1.05, 1.02) rotate(1deg); opacity: 1; }
+    80% { transform: translateX(-50%) scale(0.96, 1) rotate(0deg); opacity: 0.85; }
+}
+
+/* Confetti Container */
+.confetti {
+    position: fixed;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-accent);
+    opacity: 0;
+    z-index: 9999;
+    pointer-events: none;
+    animation: confettiFall 3s ease-in forwards;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ==========================================================================
+   7. CLOSING
+   ========================================================================== */
+.closing-images {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+.closing-img {
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-soft);
+    border: 2px solid #fff;
+}
+.closing-img.left {
+    transform: rotate(-5deg);
+}
+.closing-img.right {
+    transform: rotate(5deg);
+    margin-top: 20px;
+}
+
+.closing-actions {
+    margin-top: 2rem;
+    position: relative;
+}
+.feedback-msg {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.85rem;
+    color: var(--color-accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.feedback-msg.show {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   ANIMATIONS & REVEAL CLASSES
+   ========================================================================== */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+.delay-1 { animation-delay: 0.5s; }
+.delay-2 { animation-delay: 1s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Intersection Observer Reveal initial state */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Static tilt for scrapbook */
+.tilt-left { transform: rotate(-3deg) translateY(40px); }
+.tilt-right { transform: rotate(3deg) translateY(40px); }
+.tilt-left.active { transform: rotate(-3deg) translateY(0); }
+.tilt-right.active { transform: rotate(3deg) translateY(0); }
+
+/* Float animation for wish cards */
+.float-1 { animation: float 6s ease-in-out infinite; }
+.float-2 { animation: float 7s ease-in-out infinite alternate; }
+.float-3 { animation: float 5s ease-in-out infinite; }
+
+.delay-sm { transition-delay: 0.2s; animation-delay: 0.2s; }
+.delay-md { transition-delay: 0.4s; animation-delay: 0.4s; }
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (Mobile First adjusted for larger screens above)
+   ========================================================================== */
+@media (max-width: 767px) {
+    .section-container {
+        padding: 4rem 1.5rem;
+    }
+    
+    .letter-paper {
+        padding: 2rem;
+    }
+    
+    #audio-toggle {
+        top: 1rem;
+        right: 1rem;
+        width: 40px; height: 40px;
+    }
+    #audio-toggle svg {
+        width: 20px; height: 20px;
+    }
+    
+    #back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 40px; height: 40px;
+    }
+}
+
+/* ==========================================================================
+   DARK MAKE-A-WISH OVERLAY
+   ========================================================================== */
+#dark-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.93);
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 2s ease-in-out;
+}
+#dark-overlay.active {
+    opacity: 1;
+}
+
+#birthday-cake-section {
+    position: relative;
+    z-index: 55;
+}
+
+.dark-mode-glow {
+    box-shadow: 0 0 60px 30px rgba(255, 153, 0, 0.6), 0 0 100px 50px rgba(255, 204, 0, 0.3) !important;
+}
+
+/* ==========================================================================
+   GLITCH SCREEN
+   ========================================================================== */
+#glitch-screen {
+    position: fixed; inset: 0; z-index: 99999;
+    background-color: #050505; color: #fff;
+    font-family: monospace; display: flex;
+    flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+}
+#glitch-screen.hidden { display: none !important; }
+
+.glitch-text, .glitch-text-sub {
+    font-size: 2.5rem; font-weight: bold; position: relative;
+    color: white; margin-bottom: 1rem;
+    animation: glitch-anim 0.5s infinite;
+}
+.glitch-text-sub { font-size: 1.5rem; animation: glitch-anim 0.3s infinite reverse; }
+
+@keyframes glitch-anim {
+    0% { text-shadow: 2px 0 red, -2px 0 blue; transform: translate(0); }
+    33% { text-shadow: -2px 0 red, 2px 0 blue; transform: translate(-2px, 2px); }
+    66% { text-shadow: 2px 0 red, -2px 0 blue; transform: translate(2px, -2px); }
+    100% { text-shadow: -2px 0 red, 2px 0 blue; transform: translate(0); }
+}
+
+.btn-fairy {
+    padding: 15px 30px; font-size: 1.2rem;
+    background: transparent; border: 2px solid #ffb6c1; color: #ffb6c1;
+    cursor: pointer; transition: 0.3s;
+    text-transform: uppercase; letter-spacing: 2px;
+    border-radius: 50px;
+    animation: pulse 2s infinite;
+}
+.btn-fairy:hover {
+    background: #ffb6c1; color: #fff; box-shadow: 0 0 25px #ffb6c1;
+}
+
+/* ==========================================================================
+   WISH SKY (FALLING STARS)
+   ========================================================================== */
+.wish-sky {
+    position: relative; width: 100%; height: 60vh; min-height: 400px;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    overflow: hidden; box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+    cursor: crosshair; outline: none; border: none;
+    border-radius: 12px;
+}
+
+.falling-star {
+    position: absolute; display: flex; align-items: center; gap: 10px;
+    padding: 0.8rem 1.5rem; background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px; color: #fff; font-size: 1rem; cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    top: -100px; left: 120%;
+    animation: starFall 12s linear infinite;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.falling-star:hover {
+    transform: scale(1.1); box-shadow: 0 0 30px rgba(255,255,255,0.8);
+    animation-play-state: paused;
+}
+.falling-star::before {
+    content: ''; position: absolute; top: 50%; left: -60px;
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,1));
+    transform: translateY(-50%); border-radius: 2px;
+}
+.star-glow { width: 12px; height: 12px; background: #fff; border-radius: 50%; box-shadow: 0 0 15px #fff; }
+
+@keyframes starFall {
+    0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translate(-140vw, 100vh) scale(0.4); opacity: 0; }
+}
+
+.star-modal {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+    background: #fff; padding: 2.5rem; border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 50;
+    opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none; width: 80%; max-width: 400px; text-align: center;
+}
+.star-modal.active { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+
+/* ==========================================================================
+   FIREFLIES (KUNANG-KUNANG)
+   ========================================================================== */
+.fireflies-container {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none; z-index: 52; /* Di atas dark-overlay (50) tapi di bawah lilin (55) */
+    overflow: hidden; opacity: 0;
+    transition: opacity 1.5s ease;
+}
+.fireflies-container.active {
+    opacity: 1;
+}
+.firefly {
+    position: absolute; width: 4px; height: 4px;
+    background: #ffcc00; border-radius: 50%;
+    box-shadow: 0 0 10px 4px rgba(255, 204, 0, 0.8), 0 0 20px 8px rgba(255, 153, 0, 0.5);
+    animation: drift 15s infinite linear, flicker 2s infinite alternate;
+}
+@keyframes flicker {
+    0% { opacity: 0.3; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.2); }
+}
+@keyframes drift {
+    0% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-30px) translateX(30px); }
+    50% { transform: translateY(-60px) translateX(-20px); }
+    75% { transform: translateY(-30px) translateX(-40px); }
+    100% { transform: translateY(0) translateX(0); }
+}ter-events: auto; }

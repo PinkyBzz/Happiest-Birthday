@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun!</title>
+    
+    <!-- Google Fonts: Playfair Display untuk header elegan, Lato untuk body yang bersih -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (via CDN for rapid development/styling in this example) -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Custom Animated Cursor Container (Desktop Only via CSS) -->
+    <div class="custom-cursor fixed top-0 left-0 w-3 h-3 bg-[#d8a7a5] rounded-full pointer-events-none z-[9999] mix-blend-multiply opacity-80" id="custom-cursor"></div>
+    <div class="custom-cursor-follower fixed top-0 left-0 w-8 h-8 border border-[#d8a7a5] rounded-full pointer-events-none z-[9998] transition-transform duration-300 ease-out" id="custom-cursor-follower"></div>
+
+    <!-- Moving Mesh Warm Gradient Background -->
+    <div class="mesh-bg"></div>
+    <div class="shimmer-overlay"></div>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="scroll-progress"></div>
+    </div>
+
+    <!-- DARK MODE OVERLAY & FIREFLIES -->
+    <div id="dark-overlay"></div>
+    <div id="fireflies-container" class="fireflies-container"></div>
+
+    <!-- Audio Player (Hidden UI) -->
+    <!-- Ganti src dengan file musik kamu -->
+    <audio id="bg-music" loop>
+        <source src="assets/audio/birthday-song.mp3" type="audio/mpeg">
+        Browser kamu tidak mendukung pemutar audio.
+    </audio>
+
+    <!-- Floating Audio Control -->
+    <button id="audio-toggle" class="floating-btn hidden" aria-label="Toggle Music">
+        <!-- SVG Play Icon -->
+        <svg id="icon-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <!-- SVG Pause Icon (Disembunyikan awalnya) -->
+        <svg id="icon-pause" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+    </button>
+
+    <!-- 1. OPENING SCREEN -->
+    <section id="opening-screen" class="screen-full">
+        <div class="opening-content">
+            <h1 class="fade-in-up">Untuk Kamu, <br><span>[Nama]</span></h1>
+            <p class="fade-in-up delay-1">Ada sebuah cerita kecil yang ingin aku sampaikan hari ini di hari ulang tahunmu...</p>
+            <button id="btn-open" class="btn-primary fade-in-up delay-2">Buka pelan-pelan</button>
+        </div>
+        <!-- Sparkles dekorasi -->
+        <div class="sparkles"></div>
+    </section>
+
+    <!-- GLITCH INTERSTITIAL (Hidden awalnya) -->
+    <div id="glitch-screen" class="hidden">
+        <div class="glitch-text" data-text="ERROR 404: FILES CORRUPTED">ERROR 404: FILES CORRUPTED</div>
+        <div class="glitch-text-sub" data-text="MEMORY FRAGMENTATION DETECTED.">MEMORY FRAGMENTATION DETECTED.</div>
+        <button id="btn-fix" class="btn-fairy mt-10">Use your fairy power to fix ✨</button>
+    </div>
+
+    <!-- MAIN CONTENT (Awalnya tersembunyi) -->
+    <main id="main-content" class="hidden">
+        
+        <!-- 2. HERO SECTION -->
+        <section id="hero" class="section-container">
+            <div class="hero-wrapper reveal">
+                <div class="hero-image-container">
+                    <!-- Foto 1 (Utama) -->
+                    <img src="assets/images/photo-1.jpg" alt="Foto cantik untuk pembukaan" class="hero-img">
+                </div>
+                <div class="hero-text">
+                    <h2>Selamat Ulang Tahun!</h2>
+                    <p>Semoga canggung dan ragu berlalu, berganti dengan bahagia yang selalu baru.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. MEMORY GALLERY / STORY CHAPTERS -->
+        <!-- Chapter 1 -->
+        <section class="section-container bg-alt">
+            <div class="section-header reveal">
+                <h2>Bab Satu: Tawa & Cerita</h2>
+                <p>Mengingat kembali momen-momen yang terlewatkan begitu cepat.</p>
+            </div>
+            <div class="gallery-grid">
+                <!-- Foto 2 -->
+                <figure class="scrapbook-card glass-card reveal tilt-left">
+                    <div class="img-wrapper">
+                        <img src="assets/images/photo-2.jpg" alt="Memory 1">
+                    </div>
+                    <figcaption>Tawa pertama kita bulan lalu.</figcaption>
+                </figure>
+                <!-- Foto 3 -->
+                <figure class="scrapbook-card glass-card reveal tilt-right delay-sm">
+                    <div class="img-wrapper">
+                        <img src="assets/images/photo-3.jpg" alt="Memory 2">
+                    </div>
+                    <figcaption>Senja yang tidak pernah gagal.</figcaption>
+                </figure>
+                <!-- Foto 4 -->
+                <figure class="scrapbook-card glass-card reveal tilt-left delay-md">
+                    <div class="img-wrapper">
+                        <img src="assets/images/photo-4.jpg" alt="Memory 3">
+                    </div>
+                    <figcaption>Cerita manis yang tersimpan rapi.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Chapter 2 -->
+        <section class="section-container">
+            <div class="section-header reveal">
+                <h2>Bab Dua: Hari yang Baru</h2>
+                <p>Dan langkah-langkah baru yang menunggumu di depan.</p>
+            </div>
+            <div class="gallery-grid">
+                <!-- Foto 5 -->
+                <figure class="scrapbook-card glass-card reveal tilt-right">
+                    <div class="img-wrapper">
+                        <img src="assets/images/photo-5.jpg" alt="Memory 4">
+                    </div>
+                    <figcaption>Teruslah melangkah dengan senyum itu.</figcaption>
+                </figure>
+                <!-- Foto 6 -->
+                <figure class="scrapbook-card glass-card reveal tilt-left delay-sm">
+                    <div class="img-wrapper">
+                        <img src="assets/images/photo-6.jpg" alt="Memory 5">
+                    </div>
+                    <figcaption>Semesta berpihak pada yang baik.</figcaption>
+                </figure>
+                <!-- Foto 7 -->
+                <figure class="scrapbook-card glass-card reveal tilt-right delay-md">
+                    <div class="img-wrapper">
+                        <img src="assets/images/photo-7.jpg" alt="Memory 6">
+                    </div>
+                    <figcaption>Kamu selalu cukup, bahkan lebih.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- 4. LETTER / UCAPAN SECTION -->
+        <section class="section-container bg-alt" id="letter">
+            <div class="letter-wrapper reveal">
+                <div class="letter-photo">
+                    <!-- Foto 8 (Pendamping Surat) -->
+                    <img src="assets/images/photo-8.jpg" alt="Foto pendamping pesan">
+                </div>
+                <div class="letter-paper glass-panel-heavy">
+                    <p class="greeting">Hai [Nama],</p>
+                    <p>Selamat bertambah usia. Di hari yang spesial ini, aku cuma mau bilang terima kasih karena sudah bertahan sebaik ini. Terima kasih karena selalu mencoba menjadi versi terbaik dari dirimu sendiri.</p>
+                    <p>Semoga ruang sedihmu makin sempit, dan alasanmu untuk tersenyum makin banyak. Jangan lupa istirahat, jangan lupa bahagia. Aku selalu ada di sini untuk mendengarkan ceritamu.</p>
+                    <p class="signature">Tulus dari <br> <strong>[Nama Pengirim]</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. WISH WALL / MESSAGE CARDS -->
+        <section class="section-container relative" id="wishes">
+            <div class="section-header reveal relative z-10">
+                <h2 class="text-white drop-shadow-md">Catatan Kecil</h2>
+                <p class="text-gray-200">Langit penuh harapan untukmu hari ini. Tangkap bintangnya!</p>
+            </div>
+            
+            <div class="wish-sky hidden-overflow rounded-lg">
+                <!-- Stars akan digenerate otomatis lewat JS -->
+            </div>
+            
+            <!-- Modal Untuk Pesan Bintang -->
+            <div class="star-modal" id="star-modal">
+                <p id="star-message-text" class="text-lg font-[var(--font-heading)] italic text-[var(--color-primary)]"></p>
+                <p class="mt-4 text-sm text-gray-400">Klik manapun untuk menutup</p>
+            </div>
+        </section>
+
+        <!-- 6. LITTLE INTERACTIVE SURPRISE -->
+        <section class="section-container bg-alt" id="surprise">
+            <div class="surprise-wrapper reveal flex flex-col items-center text-center">
+                <h2>Ada kado buatmu...</h2>
+                <p id="gift-hint">Coba ketuk kadonya beberapa kali!</p>
+                
+                <div class="gift-container" id="gift-container">
+                    <!-- Pesan yang akan melayang naik -->
+                    <div class="gift-message-card" id="gift-message-card">
+                        <p id="surprise-text" class="text-[var(--color-primary)] font-[var(--font-heading)] italic text-lg leading-relaxed"></p>
+                    </div>
+                    <!-- Visual Kotak Kado -->
+                    <div class="gift-bow"></div>
+                    <div class="gift-lid"></div>
+                    <div class="gift-box"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6.5 INTERACTIVE CAKE (NEW) -->
+        <section class="section-container" id="birthday-cake-section">
+            <div class="cake-wrapper reveal">
+                <h2>Virtual Cake!</h2>
+                <p>Mendekatlah ke microphone perangkatmu lalu tiup lilinnya (Make a wish first!).</p>
+                
+                <div class="cake-container">
+                    <div class="cake">
+                        <div class="candle">
+                            <div id="flame" class="flame"></div>
+                        </div>
+                        <div class="cake-top"></div>
+                        <div class="cake-bottom"></div>
+                    </div>
+                </div>
+
+                <div class="cake-actions">
+                    <button id="btn-mic" class="btn-primary">Nyalakan Mic untuk Meniup</button>
+                    <p id="mic-status" class="mic-status mt-3 text-sm italic text-[#8c7b74]"></p>
+                </div>
+                
+                <div id="cake-wish-reveal" class="hidden mt-6 text-center transition-all duration-700">
+                    <h3 class="text-2xl font-[var(--font-heading)] italic text-[var(--color-accent)]">Yeay! Lilin berhasil ditiup!</h3>
+                    <p class="text-[var(--color-text-muted)]">Semoga semua harapanmu hari ini terkabul, ya.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. CLOSING SECTION -->
+        <footer class="section-container closing" id="closing">
+            <div class="closing-images reveal">
+                <!-- Foto 9 & 10 (Penutup) -->
+                <img src="assets/images/photo-9.jpg" alt="Ending 1" class="closing-img left">
+                <img src="assets/images/photo-10.jpg" alt="Ending 2" class="closing-img right">
+            </div>
+            
+            <div class="closing-text reveal">
+                <h2>Happy Birthday.</h2>
+                <p>Bahagia selalu, ya.</p>
+            </div>
+            
+            <div class="closing-actions reveal">
+                <button id="btn-share" class="btn-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                    Bagikan Link Ini
+                </button>
+                <div id="share-feedback" class="feedback-msg">Link disalin!</div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="floating-btn hidden" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
